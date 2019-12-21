@@ -4,8 +4,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
-import com.example.lab6.geometry.Rose;
-import com.example.lab6.geometry.Star;
+import com.example.lab6.geometry.Tank;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -21,36 +20,24 @@ public class GameRenderer implements GLSurfaceView.Renderer {
     private float ratioY;
     private float ratioX;
 
-    private Star star;
-    private Rose rose;
+    private Tank tank;
 
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
-        // Set the background frame color
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         GLES20.glEnable(GLES20.GL_CULL_FACE);
         GLES20.glFrontFace(GLES20.GL_FRONT);
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
-        star = new Star();
-            star.setRotationAngle(0.09f);
-            star.setRotationAxis(new float[]{1,0,0});
-            star.setTranslation(new float[]{0,0,2});
-
-        rose = new Rose();
+        tank = new Tank();
     }
 
     public void onDrawFrame(GL10 unused) {
-        // Redraw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
         Matrix.setLookAtM(viewMatrix, 0, 0, 2, 3f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-
-        // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
 
-
-        star.draw(vPMatrix);
-        rose.draw(vPMatrix);
+        tank.draw(vPMatrix);
     }
 
 
@@ -75,8 +62,6 @@ public class GameRenderer implements GLSurfaceView.Renderer {
             top *= ratioY;
         }
 
-        // this projection matrix is applied to object coordinates
-        // in the onDrawFrame() method
         Matrix.frustumM(projectionMatrix, 0, left, right, bottom, top, near, far);
         GameView.left = left;
         GameView.right = right;
@@ -86,11 +71,8 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 
     public static int loadShader(int type, String shaderCode){
 
-        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
         int shader = GLES20.glCreateShader(type);
 
-        // add the source code to the shader and compile it
         GLES20.glShaderSource(shader, shaderCode);
         GLES20.glCompileShader(shader);
 

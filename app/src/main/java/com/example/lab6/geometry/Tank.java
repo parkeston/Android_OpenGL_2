@@ -11,7 +11,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
-public class Rose {
+public class Tank {
 
     private final String vertexShaderCode =
             "uniform mat4 uMVPMatrix;" +
@@ -46,63 +46,88 @@ public class Rose {
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
     private float[] coords = new float[]
             {
-                    -0.5f, 1.0f, 0.0f,      1.0f, 0.0f, 0.0f,
-                    -0.25f, 1.0f, 0.5f,     1.0f, 0.0f, 0.0f,
-                    0.25f, 1.0f, 0.5f,      1.0f, 0.0f, 0.0f,
-                    0.5f, 1.0f, 0.0f,       1.0f, 0.0f, 0.0f,
-                    0.25f, 1.0f, -0.5f,     1.0f, 0.0f, 0.0f,
-                    -0.25f, 1.0f, -0.5f,    1.0f, 0.0f, 0.0f,
-                    -0.1f, 0.7f, 0.0f,      1.0f, 0.4f, 0.0f,
-                    0.0f, 0.7f, 0.1f,       1.0f, 0.4f, 0.0f,
-                    0.1f, 0.7f, 0.0f,       1.0f, 0.4f, 0.0f,
-                    0.0f, 0.7f, -0.1f,      1.0f, 0.4f, 0.0f,
-                    -0.1f, 0.0f, 0.0f,      0.0f, 1.0f, 0.0f,
-                    0.0f, 0.0f, 0.1f,       0.0f, 1.0f, 0.0f,
-                    0.1f, 0.0f, 0.0f,       0.0f, 1.0f, 0.0f,
-                    0.0f, 0.0f, -0.1f,      0.0f, 1.0f, 0.0f,
-                    0.0f, 1.3f, 0.0f,       1.0f, 1.0f, 0.0f
+                     0.220861f ,0.146243f ,-0.196792f,      0.3f, 1.0f, 0.0f,
+                     0.500000f, -0.146243f ,-0.777076f,     1.0f, 1.0f, 1.0f,
+                     0.053734f, 0.232617f, 0.489712f,       1.0f, 0.0f, 1.0f,
+                     0.500000f ,-0.146243f, 0.777076f,      1.0f, 1.0f, 1.0f,
+                     -0.220861f ,0.146243f ,-0.196792f,     0.3f, 1.0f, 0.0f,
+                     -0.500000f, -0.146243f ,-0.777076f,    1.0f, 1.0f, 1.0f,
+                     -0.053734f, 0.232617f, 0.489712f,      1.0f, 0.0f, 1.0f,
+                     -0.500000f ,-0.146243f, 0.777076f,     1.0f, 1.0f, 1.0f,
+                     0.500000f, 0.146243f, 0.777076f,       0.3f, 1.0f, 0.0f,
+                     -0.500000f, 0.146243f, 0.777076f,      0.3f, 1.0f, 0.0f,
+                     0.500000f ,0.146243f ,-0.777076f,      0.3f, 1.0f, 0.0f,
+                     -0.500000f ,0.146243f ,-0.777076f,     0.3f, 1.0f, 0.0f,
+                     0.053734f, 0.328372f, 0.489712f,       1.0f, 0.0f, 1.0f,
+                     -0.053734f, 0.328372f, 0.489712f,      1.0f, 0.0f, 1.0f,
+                     0.220861f ,0.414745f ,-0.196792f,      1.0f, 0.0f, 1.0f,
+                     -0.220861f ,0.414745f ,-0.196792f,     1.0f, 0.0f, 1.0f,
+                     0.220861f, 0.146243f, 0.489712f,       0.3f, 1.0f, 0.0f,
+                     -0.220861f, 0.146243f, 0.489712f,      0.3f, 1.0f, 0.0f,
+                     0.220861f, 0.414745f, 0.489712f,       1.0f, 0.0f, 1.0f,
+                     -0.220861f, 0.414745f, 0.489712f,      1.0f, 0.0f, 1.0f,
+                     0.053734f, 0.232617f, 1.162435f,       1.0f, 0.0f, 1.0f,
+                     -0.053734f, 0.232617f, 1.162435f,      1.0f, 0.0f, 1.0f,
+                     0.053734f, 0.328372f, 1.162435f,       1.0f, 0.0f, 1.0f,
+                     -0.053734f, 0.328372f, 1.162435f,      1.0f, 0.0f, 1.0f,
             };
 
     private short drawOrder[] = {
-            0,1,2,
-            5,0,2,
-            4,5,2,
-            3,4,2,
 
-            6,0,5,
-            6,5,9,
-            9,5,4,
-            9,4,8,
-            8,4,3,
-            8,3,7,
-            7,3,2,
-            7,2,1,
-            7,1,6,
-            6,1,0,
+            18, 16, 5,
+            9, 8, 4,
+            10, 6, 8,
+            2, 8, 6,
+            11, 4, 2,
+            12, 2, 6,
+            17, 10, 9,
+            1, 9, 11,
+            5, 10, 18,
+            5, 11, 12,
+            16, 19, 15,
+            14, 23, 13,
+            5, 15, 1,
+            1, 19, 17,
+            7, 17, 3,
+            13, 20, 14,
+            14, 18, 7,
+            3, 19, 13,
+            21, 24, 22,
+            7, 24, 14,
+            3, 22, 7,
+            13, 21, 3,
+            18, 20, 16,
+            9,10, 8,
+            10, 12, 6,
+            2, 4, 8,
+            11, 9, 4,
+            12, 11, 2,
+            17, 18, 10,
+            1, 17, 9,
+            5, 12, 10,
+            5, 1, 11,
+            16, 20, 19,
+            14, 24, 23,
+            5, 16, 15,
+            1, 15, 19,
+            7, 18, 17,
+            13, 19, 20,
+            14, 20, 18,
+            3, 17, 19,
+            21, 23, 24,
+            7, 22, 24,
+            3, 21, 22,
+            13, 23, 21,
+    }; // order to draw vertices
 
-            10,6,9,
-            10,9,13,
-            13,9,8,
-            13,8,12,
-            12,8,7,
-            12,7,11,
-            11,7,6,
-            11,6,10,
-
-            10,12,11,
-            10,13,12,
-
-            5,14,4,
-            4,14,3,
-            3,14,2,
-            2,14,1,
-            1,14,0,
-            0,14,5 }; // order to draw vertices
-
-    public Rose()
+    public Tank()
     {
+
+        for (int i =0;i<drawOrder.length;i++)
+        {
+            drawOrder[i]--;
+        }
         ByteBuffer bb = ByteBuffer.allocateDirect(
-                // (# of coordinate values * 4 bytes per float)
                 coords.length * 4);
         bb.order(ByteOrder.nativeOrder());
         vertexBuffer = bb.asFloatBuffer();
@@ -110,7 +135,6 @@ public class Rose {
         vertexBuffer.position(0);
 
         ByteBuffer dlb = ByteBuffer.allocateDirect(
-                // (# of coordinate values * 2 bytes per short)
                 drawOrder.length * 2);
         dlb.order(ByteOrder.nativeOrder());
         drawListBuffer = dlb.asShortBuffer();
@@ -123,7 +147,6 @@ public class Rose {
         int fragmentShader = GameRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER,
                 fragmentShaderCode);
 
-        // create empty OpenGL ES Program
         mProgram = GLES20.glCreateProgram();
         GLES20.glAttachShader(mProgram, vertexShader);
         GLES20.glAttachShader(mProgram, fragmentShader);
@@ -137,40 +160,32 @@ public class Rose {
         long time = SystemClock.uptimeMillis() % 4000L;
         float angle = 0.090f * ((int) time);
         Matrix.setRotateM(modelMatrix, 0, angle, 0, 1, 0);
-        Matrix.translateM(modelMatrix,0,2,0,0);
+        //Matrix.translateM(modelMatrix,0,2,0,0);
 
         Matrix.multiplyMM(mVPMatrix,0,vPMatrix,0,modelMatrix,0);
 
-
         GLES20.glUseProgram(mProgram);
 
-        // get handle to vertex shader's vPosition member
+
         positionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
         vertexBuffer.position(0);
-
-        // Prepare the triangle coordinate data
         GLES20.glVertexAttribPointer(positionHandle, 3,
                 GLES20.GL_FLOAT, false,
                 vertexStride, vertexBuffer);
-        // Enable a handle to the triangle vertices
         GLES20.glEnableVertexAttribArray(positionHandle);
 
-        // get handle to fragment shader's vColor member
+
         colorHandle = GLES20.glGetAttribLocation(mProgram, "a_Color");
         vertexBuffer.position(3);
         GLES20.glVertexAttribPointer(colorHandle,3,GLES20.GL_FLOAT,false,vertexStride,vertexBuffer);
         GLES20.glEnableVertexAttribArray(colorHandle);
 
-        // get handle to shape's transformation matrix
-        vPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
-        // Pass the projection and view transformation to the shader
+        vPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
         GLES20.glUniformMatrix4fv(vPMatrixHandle, 1, false, mVPMatrix, 0);
 
-        // Draw the triangle
         GLES20.glDrawElements(GLES20.GL_TRIANGLES,drawOrder.length,GLES20.GL_UNSIGNED_SHORT,drawListBuffer);
 
-        // Disable vertex array
         GLES20.glDisableVertexAttribArray(positionHandle);
         GLES20.glDisableVertexAttribArray(colorHandle);
     }
